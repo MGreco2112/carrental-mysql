@@ -3,6 +3,7 @@ package com.carrental.carrental.controllers;
 import com.carrental.carrental.models.Customer;
 import com.carrental.carrental.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class CustomerController {
     @GetMapping("/{id}")
     public @ResponseBody ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
         return new ResponseEntity<>(repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)), HttpStatus.OK);
+    }
+
+    @GetMapping("/membership/{isMember}")
+    public @ResponseBody ResponseEntity<List<Customer>> getAllMembers(@PathVariable Boolean isMember) {
+        return new ResponseEntity<>(repository.findAllByIsMember(isMember, Sort.by("name")), HttpStatus.OK);
     }
 
     @PostMapping

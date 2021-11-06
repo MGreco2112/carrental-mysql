@@ -29,7 +29,7 @@ public class VehicleController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<Vehicle> postVehicle(@RequestBody Vehicle newVehicle) {
-        return new ResponseEntity<>(repository.save(newVehicle), HttpStatus.OK);
+        return new ResponseEntity<>(repository.save(newVehicle), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

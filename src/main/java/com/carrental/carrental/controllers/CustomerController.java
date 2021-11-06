@@ -29,7 +29,7 @@ public class CustomerController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<Customer> postNewCustomer(@RequestBody Customer newCustomer) {
-        return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.OK);
+        return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

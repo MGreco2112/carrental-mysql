@@ -3,6 +3,7 @@ package com.carrental.carrental.controllers;
 import com.carrental.carrental.models.Vehicle;
 import com.carrental.carrental.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,11 @@ public class VehicleController {
     @GetMapping("/{id}")
     public @ResponseBody ResponseEntity<Vehicle> getOne(@PathVariable Long id) {
         return new ResponseEntity<>(repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)), HttpStatus.OK);
+    }
+
+    @GetMapping("/make/{make}")
+    public @ResponseBody ResponseEntity<List<Vehicle>> getAllByMake(@PathVariable String make) {
+        return new ResponseEntity<>(repository.findAllByMake(make, Sort.by("model")), HttpStatus.OK);
     }
 
     @PostMapping

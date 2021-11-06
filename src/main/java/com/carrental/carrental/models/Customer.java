@@ -37,11 +37,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Boolean getMember() {
+    public Boolean getIsMember() {
         return isMember;
     }
 
-    public void setMember(Boolean member) {
+    public void setIsMember(Boolean member) {
         isMember = member;
     }
 

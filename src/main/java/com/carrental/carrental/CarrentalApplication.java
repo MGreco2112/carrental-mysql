@@ -21,6 +21,11 @@ public class CarrentalApplication {
 		Name: Many-to-Many (Multiple accounts can have the same name without conflict)
 		IsMember: Many-to-Many
 		LicenceNumber: One-to-One
+
+		Vehicle to Customer: One to One
+		Customer to Vehicle: One to One
+		Company to Vehicle: One to Many
+		Customers to Company: Many to One
 	 */
 
 	public static void main(String[] args) {

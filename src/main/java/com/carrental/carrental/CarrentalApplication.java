@@ -24,8 +24,8 @@ public class CarrentalApplication {
 
 		Vehicle to Customer: One to One
 		Customer to Vehicle: One to One
-		Transaction to Vehicle: Many to One
-		Customer to Transaction: One to Many
+		Mechanic to Repair: One to Many
+		Repair to Vehicle: Many to One
 	 */
 
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package com.carrental.carrental.controllers;
 import com.carrental.carrental.models.Mechanic;
 import com.carrental.carrental.repository.MechanicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class MechanicController {
     @GetMapping("/{id}")
     public ResponseEntity<Mechanic> getById(@PathVariable Long id) {
         return new ResponseEntity<>(repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)), HttpStatus.OK);
+    }
+
+    @GetMapping("/repairs/{onRepair}")
+    public ResponseEntity<Iterable<Mechanic>> getAllOnRepair(@PathVariable Boolean onRepair) {
+        return new ResponseEntity<>(repository.getAllByOnRepair(onRepair, Sort.by("name")), HttpStatus.OK);
     }
 
     @PostMapping

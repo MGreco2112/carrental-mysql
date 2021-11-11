@@ -1,8 +1,7 @@
 package com.carrental.carrental.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,10 +10,10 @@ public class Mechanic {
     @GeneratedValue
     private Long id;
     private String name;
-    private boolean onRepair;
-    private List<String> certifications;
+    private Boolean onRepair;
+    private String[] certifications;
 
-    public Mechanic(String name, boolean onRepair, List<String> certifications) {
+    public Mechanic(String name, boolean onRepair, String[] certifications) {
         this.name = name;
         this.onRepair = onRepair;
         this.certifications = certifications;
@@ -39,7 +38,7 @@ public class Mechanic {
         this.name = name;
     }
 
-    public boolean isOnRepair() {
+    public Boolean isOnRepair() {
         return onRepair;
     }
 
@@ -47,11 +46,11 @@ public class Mechanic {
         this.onRepair = onRepair;
     }
 
-    public List<String> getCertifications() {
+    public String[] getCertifications() {
         return certifications;
     }
 
-    public void setCertifications(List<String> certifications) {
+    public void setCertifications(String[] certifications) {
         this.certifications = certifications;
     }
 }

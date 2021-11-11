@@ -1,21 +1,27 @@
 package com.carrental.carrental.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Repair {
     @Id
     @GeneratedValue
     private Long id;
+
     @OneToOne
+    @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     private Vehicle repairVehicle;
+
     @OneToMany
-    private Mechanic mechanic;
+    @JoinColumn(name="mechanic_id", referencedColumnName = "id")
+    private List<Mechanic> mechanics;
+
     private boolean isComplete;
 
-    public Repair(Vehicle repairVehicle, Mechanic mechanic, boolean isComplete) {
+    public Repair(Vehicle repairVehicle, List<Mechanic> mechanics, boolean isComplete) {
         this.repairVehicle = repairVehicle;
-        this.mechanic = mechanic;
+        this.mechanics = mechanics;
         this.isComplete = isComplete;
     }
 
@@ -38,12 +44,12 @@ public class Repair {
         this.repairVehicle = repairVehicle;
     }
 
-    public Mechanic getMechanic() {
-        return mechanic;
+    public List<Mechanic> getMechanics() {
+        return mechanics;
     }
 
-    public void setMechanic(Mechanic mechanic) {
-        this.mechanic = mechanic;
+    public void setMechanics(List<Mechanic> mechanic) {
+        this.mechanics = mechanic;
     }
 
     public boolean isComplete() {

@@ -1,8 +1,6 @@
 package com.carrental.carrental.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Vehicle {
@@ -12,11 +10,16 @@ public class Vehicle {
     private String year;
     private Integer miles;
 
+    @ManyToOne
+    @JoinColumn(name="store_id", referencedColumnName = "id")
+    private Store store;
+
     public Vehicle() {
 
     }
 
-    public Vehicle(String make, String model, String year, Integer miles) {
+    public Vehicle(Store store, String make, String model, String year, Integer miles) {
+        this.store = store;
         this.make = make;
         this.model = model;
         this.year = year;

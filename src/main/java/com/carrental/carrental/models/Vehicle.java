@@ -65,4 +65,12 @@ public class Vehicle {
     public void setMiles(Integer miles) {
         this.miles = miles;
     }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }

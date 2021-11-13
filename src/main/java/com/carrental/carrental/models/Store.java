@@ -20,7 +20,8 @@ public class Store {
 
     }
 
-    public Store(String name, String streetAddress) {
+    public Store(List<Vehicle> vehicles , String name, String streetAddress) {
+        this.vehicles = vehicles;
         this.name = name;
         this.streetAddress = streetAddress;
     }

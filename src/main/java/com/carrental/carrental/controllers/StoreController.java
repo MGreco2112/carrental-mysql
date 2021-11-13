@@ -1,6 +1,7 @@
 package com.carrental.carrental.controllers;
 
 import com.carrental.carrental.models.Store;
+import com.carrental.carrental.models.Vehicle;
 import com.carrental.carrental.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,15 @@ public class StoreController {
     public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store update) {
         Store selectedStore = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        if (update.getVehicles() != null) {
+
+            for (Vehicle vehicleId: update.getVehicles()) {
+
+                if (!selectedStore.getVehicles().contains(vehicleId)) {
+                    selectedStore.getVehicles().add(vehicleId);
+                }
+            }
+        }
         if (update.getName() != null) {
             selectedStore.setName(update.getName());
         }

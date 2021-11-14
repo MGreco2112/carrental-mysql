@@ -42,9 +42,6 @@ public class VehicleController {
     public @ResponseBody ResponseEntity<Vehicle> updateVehicleById(@PathVariable Long id, @RequestBody Vehicle update) {
         Vehicle vehicle = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-//        if (update.getStore() != null) {
-//            vehicle.setStore(update.getStore());
-//        }
         if (update.getMake() != null) {
             vehicle.setMake(update.getMake());
         }

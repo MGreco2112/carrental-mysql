@@ -10,18 +10,11 @@ public class Vehicle {
     private String year;
     private Integer miles;
 
-//    @ManyToOne
-//    @JoinColumn(name="store_id", referencedColumnName = "id")
-//    private Store store;
-
     public Vehicle() {
 
     }
 
-    public Vehicle(
-//            Store store,
-            String make, String model, String year, Integer miles) {
-//        this.store = store;
+    public Vehicle(String make, String model, String year, Integer miles) {
         this.make = make;
         this.model = model;
         this.year = year;
@@ -68,11 +61,4 @@ public class Vehicle {
         this.miles = miles;
     }
 
-//    public Store getStore() {
-//        return store;
-//    }
-//
-//    public void setStore(Store store) {
-//        this.store = store;
-//    }
 }

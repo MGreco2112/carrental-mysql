@@ -35,6 +35,9 @@ public class StoreController {
     public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store update) {
         Store selectedStore = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        if (update.customers != null) {
+            selectedStore.customers.addAll(update.customers);
+        }
         if (update.getVehicles() != null) {
 
             for (Vehicle vehicleId: update.getVehicles()) {

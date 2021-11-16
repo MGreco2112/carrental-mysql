@@ -42,6 +42,9 @@ public class CustomerController {
     public @ResponseBody ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer update) {
         Customer customer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        if (update.stores != null) {
+            customer.stores.addAll(update.stores);
+        }
         if (update.getName() != null) {
             customer.setName(update.getName());
         }
@@ -53,6 +56,18 @@ public class CustomerController {
         }
 
         return new ResponseEntity<>(repository.save(customer), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/stores/{id}")
+    public Customer addLanguagesById(@PathVariable Long id, @RequestBody Customer updates) {
+        Customer selectedCustomer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (updates.stores != null) {
+            selectedCustomer.stores.addAll(updates.stores);
+
+        }
+
+        return repository.save(selectedCustomer);
     }
 
     @DeleteMapping("/{id}")

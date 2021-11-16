@@ -2,6 +2,7 @@ package com.carrental.carrental.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Store {
@@ -16,13 +17,20 @@ public class Store {
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     private List<Vehicle> vehicles;
 
-    //TODO Add Customers to Store Relationship, Many to One
+    @ManyToMany
+    @JoinTable(
+            name = "store_customer",
+            joinColumns = @JoinColumn(name = "store_id"),
+            inverseJoinColumns = @JoinColumn(name="customer_id")
+    )
+    public Set<Customer> customers;
 
     public Store() {
 
     }
 
-    public Store(List<Vehicle> vehicles , String name, String streetAddress) {
+    public Store(Set<Customer> customers, List<Vehicle> vehicles , String name, String streetAddress) {
+        this.customers = customers;
         this.vehicles = vehicles;
         this.name = name;
         this.streetAddress = streetAddress;

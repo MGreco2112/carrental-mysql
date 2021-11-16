@@ -1,8 +1,7 @@
 package com.carrental.carrental.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -11,11 +10,20 @@ public class Customer {
     private Boolean isMember;
     private String licenseNumber;
 
+    @ManyToMany
+    @JoinTable(
+            name = "store_customer",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name="store_id")
+    )
+    public Set<Store> stores;
+
     public Customer() {
 
     }
 
-    public Customer(String name, Boolean isMember, String licenseNumber) {
+    public Customer(Set<Store> stores, String name, Boolean isMember, String licenseNumber) {
+        this.stores = stores;
         this.name = name;
         this.isMember = isMember;
         this.licenseNumber = licenseNumber;

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/store")
 public class StoreController {
@@ -36,14 +37,14 @@ public class StoreController {
         Store selectedStore = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (update.customers != null) {
-            selectedStore.customers.addAll(update.customers);
+            selectedStore.customers = update.customers;
         }
-        if (update.getVehicles() != null) {
+        if (update.vehicles != null) {
 
-            for (Vehicle vehicleId: update.getVehicles()) {
+            for (Vehicle vehicleId: update.vehicles) {
 
-                if (!selectedStore.getVehicles().contains(vehicleId)) {
-                    selectedStore.getVehicles().add(vehicleId);
+                if (!selectedStore.vehicles.contains(vehicleId)) {
+                    selectedStore.vehicles.add(vehicleId);
                 }
             }
         }
@@ -53,8 +54,8 @@ public class StoreController {
         if (update.getStreetAddress() != null) {
             selectedStore.setStreetAddress(update.getStreetAddress());
         }
-        if (update.getVehicles() != null) {
-            selectedStore.setVehicles(update.getVehicles());
+        if (update.vehicles != null) {
+            selectedStore.vehicles = update.vehicles;
         }
 
         return new ResponseEntity<>(repository.save(selectedStore), HttpStatus.ACCEPTED);

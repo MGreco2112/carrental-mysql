@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -43,7 +44,7 @@ public class CustomerController {
         Customer customer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (update.stores != null) {
-            customer.stores.addAll(update.stores);
+            customer.stores = update.stores;
         }
         if (update.getName() != null) {
             customer.setName(update.getName());

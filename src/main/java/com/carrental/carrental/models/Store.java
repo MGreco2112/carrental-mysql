@@ -1,5 +1,7 @@
 package com.carrental.carrental.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +17,12 @@ public class Store {
 
     @OneToMany
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
-    private List<Vehicle> vehicles;
+    public List<Vehicle> vehicles;
 
-    @ManyToMany
+    @JsonManagedReference
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
-            name = "store_customer",
+            name = "customer_store",
             joinColumns = @JoinColumn(name = "store_id"),
             inverseJoinColumns = @JoinColumn(name="customer_id")
     )
@@ -60,11 +63,7 @@ public class Store {
         this.streetAddress = streetAddress;
     }
 
-    public List<Vehicle> getVehicles() {
-        return vehicles;
-    }
-
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
+//    public void setVehicles(List<Vehicle> vehicles) {
+//        this.vehicles = vehicles;
+//    }
 }

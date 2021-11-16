@@ -1,6 +1,7 @@
 package com.carrental.carrental.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Vehicle {
@@ -10,11 +11,16 @@ public class Vehicle {
     private String year;
     private Integer miles;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+     Store stores;
+
     public Vehicle() {
 
     }
 
-    public Vehicle(String make, String model, String year, Integer miles) {
+    public Vehicle(Store stores , String make, String model, String year, Integer miles) {
+        this.stores = stores;
         this.make = make;
         this.model = model;
         this.year = year;

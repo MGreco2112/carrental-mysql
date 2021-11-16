@@ -1,5 +1,7 @@
 package com.carrental.carrental.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,9 +12,10 @@ public class Customer {
     private Boolean isMember;
     private String licenseNumber;
 
-    @ManyToMany
+    @JsonManagedReference
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
-            name = "store_customer",
+            name = "customer_store",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name="store_id")
     )

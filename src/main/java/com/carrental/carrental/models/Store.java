@@ -16,6 +16,8 @@ public class Store {
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     private List<Vehicle> vehicles;
 
+    //TODO Add Customers to Store Relationship, Many to One
+
     public Store() {
 
     }

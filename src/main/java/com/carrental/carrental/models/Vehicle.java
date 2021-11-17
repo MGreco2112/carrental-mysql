@@ -18,6 +18,8 @@ public class Vehicle {
     @JoinColumn(name = "store_id", referencedColumnName = "id")
      Store stores;
 
+    //Create Vehicle to Location Relationship, One to One
+
     public Vehicle() {
 
     }

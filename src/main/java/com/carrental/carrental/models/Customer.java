@@ -13,7 +13,6 @@ public class Customer {
     private Boolean isMember;
     private String licenseNumber;
 
-    @JsonBackReference
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "customer_store",

@@ -16,12 +16,10 @@ public class Store {
     private String name;
     private String streetAddress;
 
-    @JsonManagedReference
     @OneToMany
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     public List<Vehicle> vehicles;
 
-    @JsonManagedReference
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "customer_store",

@@ -13,12 +13,13 @@ public class Vehicle {
     private String year;
     private Integer miles;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
      Store stores;
 
     //Create Vehicle to Location Relationship, One to One
+    @OneToOne
+    private Location location;
 
     public Vehicle() {
 
@@ -72,4 +73,11 @@ public class Vehicle {
         this.miles = miles;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

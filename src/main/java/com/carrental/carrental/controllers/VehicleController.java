@@ -1,6 +1,8 @@
 package com.carrental.carrental.controllers;
 
+import com.carrental.carrental.models.Location;
 import com.carrental.carrental.models.Vehicle;
+import com.carrental.carrental.repository.LocationRepository;
 import com.carrental.carrental.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,11 +14,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
     @Autowired
     VehicleRepository repository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     @GetMapping
     public @ResponseBody ResponseEntity<List<Vehicle>> getAll() {
@@ -38,6 +44,19 @@ public class VehicleController {
         return new ResponseEntity<>(repository.save(newVehicle), HttpStatus.CREATED);
     }
 
+    @PostMapping("/location")
+    public ResponseEntity<Vehicle> addLocation(@RequestBody Vehicle update) {
+        Vehicle selVeh = repository.findById(update.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Location newLocation = locationRepository.save(update.getLocation());
+
+        if (selVeh.getLocation() != null) {
+            locationRepository.delete(selVeh.getLocation());
+        }
+
+        selVeh.setLocation(newLocation);
+        return new ResponseEntity<>(repository.save(selVeh), HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public @ResponseBody ResponseEntity<Vehicle> updateVehicleById(@PathVariable Long id, @RequestBody Vehicle update) {
         Vehicle vehicle = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -53,6 +72,9 @@ public class VehicleController {
         }
         if (update.getMiles() != null) {
             vehicle.setMiles(update.getMiles());
+        }
+        if (update.getLocation() != null) {
+            vehicle.setLocation(update.getLocation());
         }
 
         return new ResponseEntity<>(repository.save(vehicle), HttpStatus.ACCEPTED);

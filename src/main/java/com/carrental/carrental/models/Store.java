@@ -1,5 +1,6 @@
 package com.carrental.carrental.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Store {
     private String name;
     private String streetAddress;
 
+    @JsonManagedReference
     @OneToMany
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     public List<Vehicle> vehicles;

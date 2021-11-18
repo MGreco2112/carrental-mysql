@@ -74,6 +74,9 @@ public class VehicleController {
             vehicle.setMiles(update.getMiles());
         }
         if (update.getLocation() != null) {
+
+            locationRepository.save(update.getLocation());
+
             vehicle.setLocation(update.getLocation());
         }
 

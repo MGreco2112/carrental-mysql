@@ -47,11 +47,11 @@ public class Location {
         this.parkingSpot = parkingSpot;
     }
 
-    public Boolean getCurrent() {
+    public Boolean getIsCurrent() {
         return isCurrent;
     }
 
-    public void setCurrent(Boolean current) {
+    public void setIsCurrent(Boolean current) {
         isCurrent = current;
     }
 

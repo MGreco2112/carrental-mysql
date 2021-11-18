@@ -89,4 +89,18 @@ public class VehicleController {
 
         return new ResponseEntity<>("Deleted", HttpStatus.OK);
     }
+
+    @DeleteMapping("/location/{id}")
+    public ResponseEntity<String> deleteLocationByVehicle(@PathVariable Long id) {
+        Vehicle selVeh = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (selVeh.getLocation() != null) {
+            Location location = selVeh.getLocation();
+            selVeh.setLocation(null);
+
+            locationRepository.delete(location);
+        }
+
+        return new ResponseEntity<>("Location Deleted", HttpStatus.OK);
+    }
 }

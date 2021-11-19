@@ -1,6 +1,7 @@
 package com.carrental.carrental.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class Customer {
     private Boolean isMember;
     private String licenseNumber;
 
+    @JsonIgnoreProperties("customers")
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "customer_store",

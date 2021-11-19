@@ -49,9 +49,6 @@ public class VehicleController {
         Vehicle selVeh = repository.findById(update.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Location newLocation = locationRepository.save(update.getLocation());
 
-//        if (selVeh.getLocation() != null) {
-//            locationRepository.delete(selVeh.getLocation());
-//        }
 
         selVeh.setLocation(newLocation);
         return new ResponseEntity<>(repository.save(selVeh), HttpStatus.CREATED);

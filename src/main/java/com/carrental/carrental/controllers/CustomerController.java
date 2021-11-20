@@ -43,8 +43,8 @@ public class CustomerController {
     public @ResponseBody ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer update) {
         Customer customer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (update.stores != null) {
-            customer.stores = update.stores;
+        if (update.getStores() != null) {
+            customer.getStores().addAll(update.getStores());
         }
         if (update.getName() != null) {
             customer.setName(update.getName());
@@ -63,9 +63,8 @@ public class CustomerController {
     public Customer addLanguagesById(@PathVariable Long id, @RequestBody Customer updates) {
         Customer selectedCustomer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (updates.stores != null) {
-            selectedCustomer.stores.addAll(updates.stores);
-
+        if (updates.getStores() != null) {
+            selectedCustomer.getStores().addAll(updates.getStores());
         }
 
         return repository.save(selectedCustomer);

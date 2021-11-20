@@ -20,7 +20,7 @@ public class Store {
 
     @OneToMany
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
-    public List<Vehicle> vehicles;
+    private List<Vehicle> vehicles;
 
     @JsonIgnoreProperties("stores")
     @ManyToMany(cascade = CascadeType.REFRESH)
@@ -29,7 +29,7 @@ public class Store {
             joinColumns = @JoinColumn(name = "store_id"),
             inverseJoinColumns = @JoinColumn(name="customer_id")
     )
-    public Set<Customer> customers;
+    private Set<Customer> customers;
 
     public Store() {
 
@@ -66,7 +66,19 @@ public class Store {
         this.streetAddress = streetAddress;
     }
 
-//    public void setVehicles(List<Vehicle> vehicles) {
-//        this.vehicles = vehicles;
-//    }
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }
 }

@@ -36,17 +36,11 @@ public class StoreController {
     public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store update) {
         Store selectedStore = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (update.customers != null) {
-            selectedStore.customers = update.customers;
+        if (update.getCustomers() != null) {
+            selectedStore.getCustomers().addAll(update.getCustomers());
         }
-        if (update.vehicles != null) {
-
-            for (Vehicle vehicleId: update.vehicles) {
-
-                if (!selectedStore.vehicles.contains(vehicleId)) {
-                    selectedStore.vehicles.add(vehicleId);
-                }
-            }
+        if (update.getVehicles() != null) {
+            selectedStore.getVehicles().addAll(update.getVehicles());
         }
         if (update.getName() != null) {
             selectedStore.setName(update.getName());
@@ -54,9 +48,7 @@ public class StoreController {
         if (update.getStreetAddress() != null) {
             selectedStore.setStreetAddress(update.getStreetAddress());
         }
-        if (update.vehicles != null) {
-            selectedStore.vehicles = update.vehicles;
-        }
+
 
         return new ResponseEntity<>(repository.save(selectedStore), HttpStatus.ACCEPTED);
     }

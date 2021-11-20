@@ -21,7 +21,7 @@ public class Customer {
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name="store_id")
     )
-    public Set<Store> stores;
+    private Set<Store> stores;
 
     public Customer() {
 
@@ -64,5 +64,13 @@ public class Customer {
 
     public void setLicenseNumber(String licenseNumber) {
         this.licenseNumber = licenseNumber;
+    }
+
+    public Set<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(Set<Store> stores) {
+        this.stores = stores;
     }
 }

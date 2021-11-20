@@ -2,6 +2,7 @@ package com.carrental.carrental.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Vehicle {
      Store stores;
 
     @OneToOne
+    @JsonIgnoreProperties("vehicle")
     private Location location;
 
     public Vehicle() {

@@ -19,6 +19,7 @@ public class Store {
 
 
     @OneToMany
+    @JsonIgnoreProperties("location")
     @JoinColumn(name="vehicle_id", referencedColumnName = "id")
     private List<Vehicle> vehicles;
 

@@ -21,9 +21,6 @@ public class Vehicle {
     private String year;
     private Integer miles;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
-     Store stores;
 
     @OneToOne
     @JsonIgnoreProperties("vehicle")
@@ -33,8 +30,7 @@ public class Vehicle {
 
     }
 
-    public Vehicle(Store stores , String make, String model, String year, Integer miles) {
-        this.stores = stores;
+    public Vehicle(String make, String model, String year, Integer miles) {
         this.make = make;
         this.model = model;
         this.year = year;

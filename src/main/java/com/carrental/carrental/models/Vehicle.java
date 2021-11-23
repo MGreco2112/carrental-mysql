@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -25,6 +26,9 @@ public class Vehicle {
     @OneToOne
     @JsonIgnoreProperties("vehicle")
     private Location location;
+
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
+    private Set<Rental> rentals;
 
     public Vehicle() {
 
@@ -83,5 +87,13 @@ public class Vehicle {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
     }
 }

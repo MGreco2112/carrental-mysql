@@ -1,7 +1,11 @@
 package com.carrental.carrental.controllers;
 
 import com.carrental.carrental.models.Customer;
+import com.carrental.carrental.models.Rental;
+import com.carrental.carrental.models.Vehicle;
 import com.carrental.carrental.repository.CustomerRepository;
+import com.carrental.carrental.repository.RentalRepository;
+import com.carrental.carrental.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -17,7 +21,11 @@ import java.util.List;
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
-    CustomerRepository repository;
+    private CustomerRepository repository;
+    @Autowired
+    private RentalRepository rentalRepository;
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     @GetMapping
     public @ResponseBody ResponseEntity<List<Customer>> getAll() {
@@ -37,6 +45,23 @@ public class CustomerController {
     @PostMapping
     public @ResponseBody ResponseEntity<Customer> postNewCustomer(@RequestBody Customer newCustomer) {
         return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/rent/{id}")
+    public ResponseEntity<Customer> createNewRental(@PathVariable Long id, @RequestBody Vehicle vehicle) {
+        Vehicle rentedVehicle = vehicleRepository.findById(vehicle.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Customer customer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Rental newRental = new Rental(rentedVehicle, customer);
+
+        rentalRepository.save(newRental);
+
+        rentedVehicle.getRentals().add(newRental);
+        customer.getRentals().add(newRental);
+
+        vehicleRepository.save(vehicle);
+
+        return new ResponseEntity<>(repository.save(customer), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

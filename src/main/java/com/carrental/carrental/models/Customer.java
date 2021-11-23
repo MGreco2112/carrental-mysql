@@ -14,7 +14,7 @@ public class Customer {
     private Boolean isMember;
     private String licenseNumber;
 
-    @JsonIgnoreProperties("customers")
+    @JsonIgnoreProperties({"customers", "vehicles"})
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "customer_store",
@@ -22,6 +22,10 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name="store_id")
     )
     private Set<Store> stores;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Rental> rentals;
+
 
     public Customer() {
 
@@ -72,5 +76,13 @@ public class Customer {
 
     public void setStores(Set<Store> stores) {
         this.stores = stores;
+    }
+
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
     }
 }

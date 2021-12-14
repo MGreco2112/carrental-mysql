@@ -25,7 +25,7 @@ public class TestController {
     @GetMapping("/mechanic")
     @PreAuthorize("hasRole('MECHANIC') or hasRole('EMPLOYEE') or hasRole('ADMIN')")
     public String mechanicAccess() {
-        return "Mod content";
+        return "mechanic content";
     }
 
     @GetMapping("/employee")

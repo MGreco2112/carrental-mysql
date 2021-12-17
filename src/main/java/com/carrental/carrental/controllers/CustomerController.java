@@ -1,16 +1,21 @@
 package com.carrental.carrental.controllers;
 
+import com.carrental.carrental.auth.User;
 import com.carrental.carrental.models.Customer;
 import com.carrental.carrental.models.Rental;
 import com.carrental.carrental.models.Vehicle;
 import com.carrental.carrental.repository.CustomerRepository;
 import com.carrental.carrental.repository.RentalRepository;
+import com.carrental.carrental.repository.UserRepository;
 import com.carrental.carrental.repository.VehicleRepository;
+import com.carrental.carrental.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,6 +31,8 @@ public class CustomerController {
     private RentalRepository rentalRepository;
     @Autowired
     private VehicleRepository vehicleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public @ResponseBody ResponseEntity<List<Customer>> getAll() {
@@ -44,6 +51,13 @@ public class CustomerController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<Customer> postNewCustomer(@RequestBody Customer newCustomer) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        User currentUser = userRepository.findById(userDetails.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        newCustomer.setUser(currentUser);
+
         return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.CREATED);
     }
 

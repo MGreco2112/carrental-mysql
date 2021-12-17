@@ -1,5 +1,6 @@
 package com.carrental.carrental.models;
 
+import com.carrental.carrental.auth.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,16 +27,24 @@ public class Customer {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Rental> rentals;
 
+    @OneToOne
+    @JoinColumn(
+            name = "users_id",
+            referencedColumnName = "id"
+    )
+    private User user;
+
 
     public Customer() {
 
     }
 
-    public Customer(Set<Store> stores, String name, Boolean isMember, String licenseNumber) {
+    public Customer(Set<Store> stores, String name, Boolean isMember, String licenseNumber, User user) {
         this.stores = stores;
         this.name = name;
         this.isMember = isMember;
         this.licenseNumber = licenseNumber;
+        this.user = user;
     }
 
     public Long getId() {
@@ -84,5 +93,13 @@ public class Customer {
 
     public void setRentals(Set<Rental> rentals) {
         this.rentals = rentals;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

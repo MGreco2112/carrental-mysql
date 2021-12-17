@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findAllByIsMember(Boolean isMember, Sort sort);
+
+    Customer findByUser_id(Long id);
 }

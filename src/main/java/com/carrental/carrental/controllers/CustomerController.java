@@ -99,7 +99,7 @@ public class CustomerController {
     }
 
     @PutMapping("/stores/{id}")
-    public Customer addLanguagesById(@PathVariable Long id, @RequestBody Customer updates) {
+    public Customer updateStoreById(@PathVariable Long id, @RequestBody Customer updates) {
         Customer selectedCustomer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (updates.getStores() != null) {

@@ -104,10 +104,10 @@ public class AuthController {
                 }
             });
 
-            user.setRoles(roles);
 
         }
 
+        user.setRoles(roles);
         repository.save(user);
 
         return new ResponseEntity(new MessageResponse("User Registered Successfully"), HttpStatus.CREATED);

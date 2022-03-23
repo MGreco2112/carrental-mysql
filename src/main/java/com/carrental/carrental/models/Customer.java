@@ -2,6 +2,7 @@ package com.carrental.carrental.models;
 
 import com.carrental.carrental.auth.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -32,6 +33,7 @@ public class Customer {
             name = "users_id",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private User user;
 
 
